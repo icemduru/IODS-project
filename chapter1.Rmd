@@ -2,3 +2,10 @@
 # About the project
 
 *Write a short description about the course and add a link to your github repository here. This is an R markdown (.Rmd) file so you can use R markdown syntax. See the 'Useful links' page in the mooc area (chapter 1) for instructions.*
+
+## Data Science course
+Thank you for this **online** course. Everybody should learn about *data science*.  
+Please find my couse page with this link: 
+[my course page link](https://github.com/icemduru/IODS-project)
+
+### Thanks.
