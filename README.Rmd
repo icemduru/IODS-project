@@ -1,3 +1,6 @@
+---
+output: github_document
+---
 # README
 
 This is readME file for my course page.  
