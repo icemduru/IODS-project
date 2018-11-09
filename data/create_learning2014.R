@@ -50,3 +50,20 @@ dim(learning2014)
 str(learning2014)
 summary(learning2014)
 
+
+#set working directory
+setwd('/home/iduru/Desktop/IODS-project/data/')
+#Save the analysis dataset to the ‘data’ folder
+write.csv(learning2014, file = "/home/iduru/Desktop/IODS-project/data/learning2014.csv")
+write.table(learning2014, sep = ",", file = "/home/iduru/Desktop/IODS-project/data/learning2014.txt")
+
+
+#Demonstrate that you can also read the data again by using read.table() or read.csv()
+demo_table = read.table(file="/home/iduru/Desktop/IODS-project/data/learning2014.txt", sep=",")
+dim(demo_table)
+str(demo_table)
+summary(demo_table)
+demo_csv = read.csv(file="/home/iduru/Desktop/IODS-project/data/learning2014.csv")
+dim(demo_csv)
+str(demo_csv)
+summary(demo_csv)
