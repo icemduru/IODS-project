@@ -1,7 +1,32 @@
-# Insert chapter 2 title here
-
+# Analysis
 *Describe the work you have done this week and summarize your learning.*
 
-- Describe your work and results clearly. 
-- Assume the reader has an introductory course level understanding of writing and reading R code as well as statistical methods
-- Assume the reader has no previous knowledge of your data or the more advanced methods you are using  
+Let's get the data. if you want to know more about the data, please read the manual webpage about it with this [link](http://www.helsinki.fi/~kvehkala/JYTmooc/JYTOPKYS3-meta.txt)
+```{r} 
+our_data = read.table("/Users/cem/Desktop/IODS-project/learning2014.txt", sep = ",", header = TRUE)
+#checking the dimentions of the data
+dim(our_data)
+#our data has 166 row and 7 columns
+
+#checking the structure of the data
+str(our_data)
+# we can see the variable names and values of each samples. 7 total variable and 166 samples are there. 
+```
+```{r} 
+#we will create graphical overview of the data, we need library. so we are calling libraries.
+
+library(ggplot2)
+library(GGally)
+# graphical overview creting codes.
+p <- ggpairs(our_data, mapping = aes(col=gender,alpha = 0.3), lower = list(combo = wrap("facethist", bins = 20)))
+p
+
+#here we can see correlation of each variables.
+```
+
+```{r} 
+qplot(attitude, Points, data = our_data) + geom_smooth(method = "lm")
+my_model <- lm(Points ~ attitude, data = our_data)
+summary(my_model)
+
+```
