@@ -1,9 +1,11 @@
 # Analysis
 *Describe the work you have done this week and summarize your learning.*
 
+### Preliminary review of the data
+
 Let's get the data. if you want to know more about the data, please read the manual webpage about it with this [link](http://www.helsinki.fi/~kvehkala/JYTmooc/JYTOPKYS3-meta.txt)
 ```{r} 
-our_data = read.table("/Users/cem/Desktop/IODS-project/learning2014.txt", sep = ",", header = TRUE)
+our_data = read.table("/home/iduru/Desktop/IODS-project/learning2014.txt", sep = ",", header = TRUE)
 #checking the dimentions of the data
 dim(our_data)
 #our data has 166 row and 7 columns
@@ -12,6 +14,7 @@ dim(our_data)
 str(our_data)
 # we can see the variable names and values of each samples. 7 total variable and 166 samples are there. 
 ```
+### Creating the graphical overview of the data
 ```{r} 
 #we will create graphical overview of the data, we need library. so we are calling libraries.
 
@@ -23,10 +26,23 @@ p
 
 #here we can see correlation of each variables.
 ```
-
+### Simple regression analysis. (target is Points)
 ```{r} 
 qplot(attitude, Points, data = our_data) + geom_smooth(method = "lm")
 my_model <- lm(Points ~ attitude, data = our_data)
 summary(my_model)
 
+#here we created a simple regression analysis for the Points and attitude. 
+#our formula is Points ~ attitude, we are interested in regression between points and attitude.
+#We can see that the slope value calculated as ~3.5 and as we can see in the summary the statistical significance is very high. (t-value)
 ```
+### Multiple regression analysis. (target is Points)
+```{r}
+my_model2 <- lm(Points ~ attitude + stra+ surf, data = our_data)
+summary(my_model2)
+#we created a multiple regression with target of Points and variables as attitude, stra, and surf.
+#On the summary part we can see that only attitude is statistically significant with the t-value(1.93e-08)
+#Other variables are not statistically significant.
+#On the simple regression analysis part (previous analysis(please check the one upper analysis)), we run regression analysis with variable that statistically significant (attitude) 
+```
+
