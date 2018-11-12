@@ -1,5 +1,5 @@
 # Analysis
-*Describe the work you have done this week and summarize your learning.*
+*Lots of regression analysis in this week...*
 
 ### Preliminary review of the data
 
@@ -12,8 +12,9 @@ dim(our_data)
 
 #checking the structure of the data
 str(our_data)
-# we can see the variable names and values of each samples. 7 total variable and 166 samples are there. 
 ```
+We can see the variable names and values of each samples. 7 total variable and 166 samples are there. 
+
 ### Creating the graphical overview of the data
 ```{r} 
 #we will create graphical overview of the data, we need library. so we are calling libraries.
@@ -23,26 +24,46 @@ library(GGally)
 # graphical overview creting codes.
 p <- ggpairs(our_data, mapping = aes(col=gender,alpha = 0.3), lower = list(combo = wrap("facethist", bins = 20)))
 p
-
-#here we can see correlation of each variables.
 ```
+Here we can see correlation of each variables.
+
 ### Simple regression analysis. (target is Points)
 ```{r} 
 qplot(attitude, Points, data = our_data) + geom_smooth(method = "lm")
 my_model <- lm(Points ~ attitude, data = our_data)
 summary(my_model)
-
-#here we created a simple regression analysis for the Points and attitude. 
-#our formula is Points ~ attitude, we are interested in regression between points and attitude.
-#We can see that the slope value calculated as ~3.5 and as we can see in the summary the statistical significance is very high. (t-value)
 ```
+Here we created a simple regression analysis for the Points and attitude.  
+Our formula is Points ~ attitude, we are interested in regression between points and attitude.  
+We can see that the slope value calculated as ~3.5 and as we can see in the summary the statistical significance is very high. (t-value)  
+
 ### Multiple regression analysis. (target is Points)
 ```{r}
 my_model2 <- lm(Points ~ attitude + stra+ surf, data = our_data)
 summary(my_model2)
-#we created a multiple regression with target of Points and variables as attitude, stra, and surf.
-#On the summary part we can see that only attitude is statistically significant with the t-value(1.93e-08)
-#Other variables are not statistically significant.
-#On the simple regression analysis part (previous analysis(please check the one upper analysis)), we run regression analysis with variable that statistically significant (attitude) 
 ```
+We created a multiple regression with target of Points and variables as attitude, stra, and surf.  
+On the summary part we can see that only attitude is statistically significant with the t-value(1.93e-08)  
+Other variables are not statistically significant.  
+On the next analysis we will remove surf variable which has quite high t value.  
+
+### Multiple regression analysis version 2
+```{r}
+my_model2 <- lm(Points ~ attitude + stra, data = our_data)
+summary(my_model2)
+```
+Here we made a multiple regression analysis using Points as a target and attitude and stra as variables.  
+We can see that intercept slope is statistically significant while stra slope value is not significantly significant.  
+R-squared value is some kind of a metric for evaluating the goodness of fit of the model. 1 is the highest score for the R-squared value.  
+R-squared value can be useful for estimating of the strength of the relationship between the model and the variable(s). However, it does not show statistical significance.
+
+### Diagnostic plots  
+3 different diagnostic plots will be created.  
+```{r}
+plot(my_model2, which = c(1,2,5), 
+     caption = list("Residuals vs Fitted", "Normal Q-Q", "Residuals vs Leverage"))
+```
+  
+1-Residuals vs Fitted, comparing resudual vs model predictions for constant variance of errors. In our case it looks reasonable.  
+2-Normal Q-Q plot is testing normality of the errors. In our case normality looks reasonable. We expect that errors are normally distributed.  
 
